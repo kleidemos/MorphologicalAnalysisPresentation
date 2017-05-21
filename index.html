@@ -1,0 +1,291 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Морфологический анализ</title>
+    <meta name="description" content="Использование метода морфологического анализа (метода Цвикки) в информационном процессе">
+    <meta name="author" content="Зайнуллин Фархад">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/white.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h3>Использование метода морфологического анализа (метода Цвикки) в информационном процессе</h3>
+<p>Зайнуллин Фархад</p>
+</section>
+<section >
+<h3>Алгоритм действий</h3>
+<ol>
+<li>
+Сформировать список проблем (вопросов)
+<ul>
+<li><em>Упорядочить хронологически</em></li>
+</ul>
+</li>
+<li>
+Для каждой проблемы
+<ol>
+<li>Определить список вариантов решения</li>
+<li>Проранжировать их</li>
+<li>Взять самый лучший</li>
+</ol>
+</li>
+<li>На основе лучших вариантов сформировать итоговый план</li>
+</ol>
+</section>
+<section >
+<section >
+<h3>1. Формирование списка проблем</h3>
+<p>Изделие: электронные часы</p>
+</section>
+<section >
+<h4>Проблемы</h4>
+<p>Производственный этап:</p>
+<ul>
+<li>выбор основного материала;</li>
+<li>выбор технологии изготовления;</li>
+<li>выбор вида коммерческого представления изделия;</li>
+<li>выбор типа упаковки соответственно виду коммерческого представления.</li>
+</ul>
+<p>Маркетинго-сбытовой этап:</p>
+<ul>
+<li>выбор способов рекламы;</li>
+<li>выбор способов доставки изделия к местам реализации</li>
+</ul>
+</section>
+</section>
+<section >
+<section >
+<h3>2. Отработка каждой проблемы</h3>
+<p>Проблема №1. Выбор основного материала</p>
+</section>
+<section >
+<h4>2.1. Определение списка альтернатив</h4>
+<ul>
+<li>Анодированный металл</li>
+<li>Пластмасса</li>
+<li>Металлопластик</li>
+</ul>
+</section>
+<section >
+<h4>2.2. Ранжирование</h4>
+<blockquote>
+<p>В связи с трудностями использования на практическом занятии других методов оценки (ранжировки) альтернатив на данном занятии используется метод попарного сравнения (предпочтения).</p>
+</blockquote>
+</section>
+<section >
+<h4>2.2. Ранжирование. Оценки</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right"></th>
+<th align="right"></th>
+<th align="right"></th>
+<th align="right"></th>
+<th align="right"></th>
+<th align="right"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right"><p>Баллы по предпочтению</p></td>
+<td align="right"><p>1</p></td>
+<td align="right"><p>2</p></td>
+<td align="right"><p>3</p></td>
+<td align="right"><p>4</p></td>
+<td align="right"><p>5</p></td>
+</tr>
+<tr class="even">
+<td align="right"><p>Баллы по непредпочтению</p></td>
+<td align="right"><p>1</p></td>
+<td align="right"><p>0.5</p></td>
+<td align="right"><p>0.33</p></td>
+<td align="right"><p>0.25</p></td>
+<td align="right"><p>0.2</p></td>
+</tr>
+</tbody>
+</table>
+
+</section>
+<section >
+<h4>2.2. Ранжирование. Процедура</h4>
+<table>
+<thead>
+<tr class="header">
+<th><p>Наименование</p></th>
+<th align="right"><p>1</p></th>
+<th align="right"><p>2</p></th>
+<th align="right"><p>3</p></th>
+<th align="right"><p>Итого</p></th>
+<th align="right"><p>Ранг</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>1. Анодированный металл</p></td>
+<td align="right"><p>0</p></td>
+<td align="right"><p>5.0</p></td>
+<td align="right"><p>0.5</p></td>
+<td align="right"><p>5.5</p></td>
+<td align="right"><p>1</p></td>
+</tr>
+<tr class="even">
+<td><p>2. Пластмасса</p></td>
+<td align="right"><p>0.2</p></td>
+<td align="right"><p>0</p></td>
+<td align="right"><p>0.33</p></td>
+<td align="right"><p>0.53</p></td>
+<td align="right"><p>3</p></td>
+</tr>
+<tr class="odd">
+<td><p>3. Металлопластик</p></td>
+<td align="right"><p>2.0</p></td>
+<td align="right"><p>3.0</p></td>
+<td align="right"><p>0</p></td>
+<td align="right"><p>5.0</p></td>
+<td align="right"><p>2</p></td>
+</tr>
+<tr class="even">
+<td><p>Итого</p></td>
+<td align="right"><p>2.2</p></td>
+<td align="right"><p>8.0</p></td>
+<td align="right"><p>0.83</p></td>
+<td align="right"><p>11.03</p></td>
+<td align="right"><p>-</p></td>
+</tr>
+</tbody>
+</table>
+
+<aside class="notes">
+По диагонали 0.<br/>
+Заполняется с диагонального элемента. Т.е. сначала все сравнения с 1. Потом оставшиеся с 2 и т.д.<br/>
+</aside>
+</section>
+<section >
+<h4>2.3. Ранжирование. Итог</h4>
+<p>Анодированный металл - предпочтительный вариант решения проблемы.</p>
+</section>
+</section>
+<section >
+<h3>3. Итоговый план</h3>
+<table>
+<thead>
+<tr class="header">
+<th><p>Проблема</p></th>
+<th><p>Лучшее решение</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Основной материал</p></td>
+<td><p>Анодированный металл</p></td>
+</tr>
+<tr class="even">
+<td><p>Технология изготовления</p></td>
+<td><p>Прессовка</p></td>
+</tr>
+<tr class="odd">
+<td><p>Коммерческое представление</p></td>
+<td><p>Поштучно</p></td>
+</tr>
+<tr class="even">
+<td><p>...</p></td>
+<td><p>...</p></td>
+</tr>
+</tbody>
+</table>
+
+<aside class="notes">
+Позволяет оценить время, стоимость и т.д.<br/>
+</aside>
+</section>
+<section >
+<section >
+<p>Спасибо за внимание.</p>
+</section>
+<section >
+<p>Занятие 9. - стр 103.</p>
+</section>
+<section >
+<p><a href="http://fsprojects.github.io/FsReveal/index.html">FsReveal</a></p>
+</section>
+</section>
+
+
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
+
