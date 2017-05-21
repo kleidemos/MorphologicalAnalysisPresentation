@@ -1,258 +1,119 @@
-- title : React Native with F#
-- description : Introduction to React Native with F#
-- author : Steffen Forkmann
+- title : Морфологический анализ
+- description : Использование метода морфологического анализа (метода Цвикки) в информационном процессе
+- author : Зайнуллин Фархад
 - theme : white
 - transition : default
 
 ***
 
-## React Native with F#
+### Использование метода морфологического анализа (метода Цвикки) в информационном процессе
 
-<br />
-<br />
-
-### Modern mobile app development
-
-<br />
-<br />
-Steffen Forkmann - [@sforkmann](http://www.twitter.com/sforkmann)
+Зайнуллин Фархад
 
 ***
 
-### Modern mobile app development?
+### Алгоритм действий
 
-* UI/UX
-    * "Native mobile apps"
-    * Performance
-* Tooling
-    * Hot loading
-    * IntelliSense
-* Maintainability
-    * Easy to debug
-    * Correctness
+1. Сформировать список проблем (вопросов)
+    * _Упорядочить хронологически_
+1. Для каждой проблемы
+    1. Определить список вариантов решения
+    1. Проранжировать их
+    1. Взять самый лучший
+1. На основе лучших вариантов сформировать итоговый план
 
----
+***
 
-### "Native" UI
+### 1. Формирование списка проблем
 
- <img src="images/meter.png" style="background: transparent; border-style: none;"  width=300 />
+Изделие: электронные часы
 
 ---
 
-### Tooling
+#### Проблемы
 
-<img src="images/hotloading.gif" style="background: transparent; border-style: none;"  />
+Производственный этап: 
+
+* выбор основного материала; 
+* выбор технологии изготовления; 
+* выбор вида коммерческого представления изделия; 
+* выбор типа упаковки соответственно виду коммерческого представления. 
+
+Маркетинго-сбытовой этап: 
+
+* выбор способов рекламы; 
+* выбор способов доставки изделия к местам реализации
 
 *** 
 
-### Model - View - Update
+### 2. Отработка каждой проблемы
 
-#### "Elm - Architecture"
+Проблема №1. Выбор основного материала
 
- <img src="images/Elm.png" style="background: white;" width=700 />
+---
 
+#### 2.1. Определение списка альтернатив
 
- <small>http://danielbachler.de/2016/02/11/berlinjs-talk-about-elm.html</small>
+* Анодированный металл
+* Пластмасса
+* Металлопластик
 
+---
+
+#### 2.2. Ранжирование
+
+> В связи с трудностями использования на практическом занятии других методов оценки (ранжировки) альтернатив на данном занятии используется метод попарного сравнения (предпочтения).
+
+---
+
+#### 2.2. Ранжирование. Оценки
+
+|||||||
+|-:|-:|-:|-:|-:|-:|
+|Баллы по предпочтению|1|2|3|4|5|
+|Баллы по непредпочтению|1|0.5|0.33|0.25|0.2|
 
 --- 
 
-### Model - View - Update
+#### 2.2. Ранжирование. Процедура
 
-    // MODEL
+|Наименование|1|2|3|Итого|Ранг|
+|-|-:|-:|-:|-:|-:|
+|1\. Анодированный металл|0|5.0|0.5|5.5|1|
+|2\. Пластмасса|0.2|0|0.33|0.53|3|
+|3\. Металлопластик|2.0|3.0|0|5.0|2|
+|Итого|2.2|8.0|0.83|11.03|-|
 
-    type Model = int
-
-    type Msg =
-    | Increment
-    | Decrement
-
-    let init() : Model = 0
-
----
-
-### Model - View - Update
-
-    // VIEW
-
-    let view model dispatch =
-        div []
-            [ button [ OnClick (fun _ -> dispatch Decrement) ] [ str "-" ]
-              div [] [ str (model.ToString()) ]
-              button [ OnClick (fun _ -> dispatch Increment) ] [ str "+" ] ]
+' По диагонали 0.
+' Заполняется с диагонального элемента. Т.е. сначала все сравнения с 1. Потом оставшиеся с 2 и т.д.
 
 ---
 
-### Model - View - Update
+#### 2.3. Ранжирование. Итог
 
-    // UPDATE
-
-    let update (msg:Msg) (model:Model) =
-        match msg with
-        | Increment -> model + 1
-        | Decrement -> model - 1
-
----
-
-### Model - View - Update
-
-    // wiring things up
-
-    Program.mkSimple init update view
-    |> Program.withConsoleTrace
-    |> Program.withReact "elmish-app"
-    |> Program.run
-
----
-
-### Model - View - Update
-
-# Demo
+Анодированный металл - предпочтительный вариант решения проблемы.
 
 ***
 
-### Sub-Components
+### 3. Итоговый план
 
-    // MODEL
+|Проблема|Лучшее решение|
+|-|-|
+|Основной материал|Анодированный металл|
+|Технология изготовления|Прессовка|
+|Коммерческое представление|Поштучно|
+|...|...|
 
-    type Model = {
-        Counters : Counter.Model list
-    }
-
-    type Msg = 
-    | Insert
-    | Remove
-    | Modify of int * Counter.Msg
-
-    let init() : Model =
-        { Counters = [] }
-
----
-
-### Sub-Components
-
-    // VIEW
-
-    let view model dispatch =
-        let counterDispatch i msg = dispatch (Modify (i, msg))
-
-        let counters =
-            model.Counters
-            |> List.mapi (fun i c -> Counter.view c (counterDispatch i)) 
-        
-        div [] [ 
-            yield button [ OnClick (fun _ -> dispatch Remove) ] [  str "Remove" ]
-            yield button [ OnClick (fun _ -> dispatch Insert) ] [ str "Add" ] 
-            yield! counters ]
-
----
-
-### Sub-Components
-
-    // UPDATE
-
-    let update (msg:Msg) (model:Model) =
-        match msg with
-        | Insert ->
-            { Counters = Counter.init() :: model.Counters }
-        | Remove ->
-            { Counters = 
-                match model.Counters with
-                | [] -> []
-                | x :: rest -> rest }
-        | Modify (id, counterMsg) ->
-            { Counters =
-                model.Counters
-                |> List.mapi (fun i counterModel -> 
-                    if i = id then
-                        Counter.update counterMsg counterModel
-                    else
-                        counterModel) }
-
----
-
-### Sub-Components
-
-# Demo
+' Позволяет оценить время, стоимость и т.д.
 
 ***
 
-### React
-
-* Facebook library for UI 
-* <code>state => view</code>
-* Virtual DOM
+Спасибо за внимание.
 
 ---
 
-### Virtual DOM - Initial
-
-<br />
-<br />
-
-
- <img src="images/onchange_vdom_initial.svg" style="background: white;" />
-
-<br />
-<br />
-
- <small>http://teropa.info/blog/2015/03/02/change-and-its-detection-in-javascript-frameworks.html</small>
+Занятие 9. - стр 103.
 
 ---
 
-### Virtual DOM - Change
-
-<br />
-<br />
-
-
- <img src="images/onchange_vdom_change.svg" style="background: white;" />
-
-<br />
-<br />
-
- <small>http://teropa.info/blog/2015/03/02/change-and-its-detection-in-javascript-frameworks.html</small>
-
----
-
-### Virtual DOM - Reuse
-
-<br />
-<br />
-
-
- <img src="images/onchange_immutable.svg" style="background: white;" />
-
-<br />
-<br />
-
- <small>http://teropa.info/blog/2015/03/02/change-and-its-detection-in-javascript-frameworks.html</small>
-
-
-*** 
-
-### ReactNative
-
- <img src="images/ReactNative.png" style="background: white;" />
-
-
- <small>http://timbuckley.github.io/react-native-presentation</small>
-
-***
-
-### Show me the code
-
-*** 
-
-### TakeAways
-
-* Learn all the FP you can!
-* Simple modular design
-
-*** 
-
-### Thank you!
-
-* https://github.com/fable-compiler/fable-elmish
-* https://ionide.io
-* https://facebook.github.io/react-native/
+[FsReveal](http://fsprojects.github.io/FsReveal/index.html)
